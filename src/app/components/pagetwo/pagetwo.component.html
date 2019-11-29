@@ -1,0 +1,23 @@
+<div class="card">
+  <h3 class="title">Réduire un URL</h3>
+  <form [formGroup]="urlForm">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="URL" formControlName="url">
+      <mat-error *ngIf="urlForm.controls['url'].hasError('pattern') && !urlForm.controls['url'].hasError('required')">
+        Veuillez saisir un url valid
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <div class="text-align-right">
+    <button [disabled]="urlForm.invalid" mat-raised-button color="primary">Réduire</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="url">
+    <input id="url-shortener" value="www.google.com" matInput placeholder="URL">
+  </div>
+  <div class="text-align-right">
+    <button (click)="copyUrl()" mat-raised-button>Copier</button>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="card">
+  <h3 class="title">Recherche utilisateur GitHub</h3>
+  <form [formGroup]="usernameForm">
+    <mat-form-field class="full-width">
+      <input matInput formControlName="username" placeholder="Username">
+    </mat-form-field>
+  </form>
+  <div class="text-align-right">
+    <button mat-raised-button [disabled]="usernameForm.invalid || isLoading" (click)="getUserByUsername()" color="primary">
+      <ng-container *ngIf="!isLoading; else loading">Chercher</ng-container>
+      <ng-template #loading>En cours ...</ng-template>
+    </button>
+  </div>
+</div>
+
+<!-- User card-->
+<div class="card" *ngIf="user && !notFound">
+  <div class="card-header">
+    <div class="user-avatar" [ngStyle]="{'background-image': 'url(' + user.avatar_url + ')' }"></div>
+    <div class="user-bio">
+      <span>{{ user.name | exists }}</span>
+      <button *ngIf="user.html_url" (click)="openProfile(user.html_url)" mat-stroked-button color="primary">Voir sur GitHub</button>
+      <p>{{ user.name }}</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="stats-box">
+      <div class="stats-item">
+        <span>Followers</span>
+        <span>{{ user.followers | exists }}</span>
+      </div>
+      <div class="stats-item">
+        <span>Follownig</span>
+        <span>{{ user.following | exists }}</span>
+      </div>
+      <div class="stats-item">
+        <span>Email</span>
+        <span>{{ user.email | exists }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="item-counter">
+      <span>Public repos <span class="badge">{{ user.public_repos }}</span></span>
+      <span>Public gists <span class="badge">{{ user.public_gists }}</span></span>
+    </div>
+    <div *ngIf="user.email" class="text-align-right">
+      <button (click)="sendEmail(user.email)" mat-raised-button>Envoyer moi un email</button>
+    </div>
+  </div>
+</div>
+<!-- User card-->
+
+<!--Message not found-->
+<h5 *ngIf="notFound">Pas de résultats trouvés</h5>
+
+<!--Message not found-->
