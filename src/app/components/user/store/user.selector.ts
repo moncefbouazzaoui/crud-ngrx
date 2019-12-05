@@ -6,3 +6,9 @@ export const getUsers = createSelector(
   selectUserState,
   (userState: UserState) => userState.Users
 );
+
+/*export const getLoader = createSelector(
+  selectUserState,
+  (userState: UserState) => userState.IsLoading
+);
+*/

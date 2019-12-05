@@ -4,9 +4,10 @@ import {IUser, IUsers, User} from '../../interfaces/user';
 import { select, Store } from '@ngrx/store';
 import {Observable, Subscription} from 'rxjs';
 import UserState from './store/user.state';
-import { getUsers } from './store/user.selector';
-import {map} from 'rxjs/operators';
+import {getUsers} from './store/user.selector';
 import * as UserActions from './store/user.action';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {UserUpdateComponent} from './user-update/user-update.component';
 
 @Component({
   selector: 'app-user',
@@ -17,28 +18,32 @@ export class UserComponent implements OnInit {
 
   users: User[];
   user$: Observable<User[]>;
-  UserSubscription: Subscription;
-  usersList: User[];
-  Title: string = '';
-  IsCompleted: boolean = false;
-  userError: Error;
 
-  constructor(private userService: UsersService, private store: Store<UserState>) {
-    this.user$ = store.pipe(select(getUsers));
+  constructor(
+    private userService: UsersService,
+    private store: Store<UserState>,
+    public dialog: MatDialog
+  ) {
+    this.user$ = this.store.pipe(select(getUsers));
   }
 
   ngOnInit() {
-    this.store.dispatch(UserActions.BeginGetUserAction());
+    this.getUsers();
   }
 
-  /*getUsers() {
-    this.userService.getUsers().subscribe((users) => {
-      this.users = users;
+  getUsers() {
+    this.store.dispatch(UserActions.GetUserAction());
+  }
+
+  openDialog(user: any): void {
+    const dialogRef = this.dialog.open(UserUpdateComponent, {
+      width: '350px',
+      data: user
     });
-  }*/
 
-  ngOnDestroy() {
-    this.UserSubscription.unsubscribe();
+    dialogRef.updatePosition({top: '20%'});
   }
+
+  ngOnDestroy() {}
 
 }

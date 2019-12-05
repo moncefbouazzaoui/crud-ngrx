@@ -11,6 +11,8 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {UserReducer} from './components/user/store/user.reducer';
 import {UserEffects} from './components/user/store/user.effects';
+import {AppReducer} from './store/app.reducer';
+import {AppEffects} from './store/app.effects';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,11 @@ import {UserEffects} from './components/user/store/user.effects';
     LayoutModule,
     SharedModule,
     HttpClientModule,
-    StoreModule.forRoot({ users: UserReducer }),
-    EffectsModule.forRoot([UserEffects])
+    StoreModule.forRoot({
+      users: UserReducer,
+      app: AppReducer
+    }),
+    EffectsModule.forRoot([UserEffects, AppEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

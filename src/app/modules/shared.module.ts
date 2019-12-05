@@ -5,10 +5,13 @@ import { MatInputModule } from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule, MatRippleModule} from '@angular/material';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {RouterModule} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NullPipe} from '../pipes/null.pipe';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -18,12 +21,16 @@ import {NullPipe} from '../pipes/null.pipe';
     NullPipe,
   ],
   imports: [
+    CommonModule,
     MatToolbarModule,
+    MatDialogModule,
+    MatSnackBarModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
     MatRippleModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     MatProgressBarModule
   ],
@@ -36,11 +43,14 @@ import {NullPipe} from '../pipes/null.pipe';
 
     // Modules
     MatToolbarModule,
+    MatDialogModule,
+    MatSnackBarModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
     MatRippleModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     MatProgressBarModule
   ]
